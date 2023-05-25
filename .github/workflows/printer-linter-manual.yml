@@ -31,7 +31,7 @@ jobs:
                 with: 
                     files: |
                       resources/**/*.def.json
-                      resources/**/*.inst/cfg
+                      resources/**/*.inst.cfg
 
             -   name: Show all matching files
                 run: |
