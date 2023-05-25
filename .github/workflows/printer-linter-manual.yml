@@ -1,0 +1,47 @@
+name: printer-linter-manual
+
+on:
+    workflow_dispatch:
+
+jobs:
+    printer-linter-format:
+        name: Printer linter auto format
+
+        permissions:
+          contents: write
+
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v3
+
+            -   name: Setup Python and pip
+                uses: actions/setup-python@v4
+                with:
+                    python-version: 3.11.x
+                    cache: 'pip'
+                    cache-dependency-path: .github/workflows/requirements-printer-linter.txt
+
+            -   name: Install Python requirements for runner
+                run: pip install -r .github/workflows/requirements-printer-linter.txt
+
+            -   name: Glob match
+                uses: tj-actions/glob@v17
+                id: glob
+                with: 
+                    files: |
+                      resources/definitions/**/*.def.json
+                      resources/extruders/**/*.def.json
+                      resources/quality/**/*.inst/cfg
+                      resources/variants/**/*.inst/cfg
+
+            -   name: Show all matching files
+                run: |
+                  echo "${{ steps.glob.outputs.paths }}"
+
+            -   name: Format file
+                run: python printer-linter/src/terminal.py --fix --format "${{ steps.glob.outputs.paths }}"
+            
+            -   uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    commit_message: "Applied printer-linter format"
