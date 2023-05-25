@@ -30,10 +30,8 @@ jobs:
                 id: glob
                 with: 
                     files: |
-                      resources/definitions/**/*.def.json
-                      resources/extruders/**/*.def.json
-                      resources/quality/**/*.inst/cfg
-                      resources/variants/**/*.inst/cfg
+                      resources/**/*.def.json
+                      resources/**/*.inst/cfg
 
             -   name: Show all matching files
                 run: |
