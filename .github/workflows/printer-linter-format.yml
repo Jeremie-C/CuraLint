@@ -41,7 +41,7 @@ jobs:
 
             -   name: Format file
                 if: env.GIT_DIFF && !env.MATCHED_FILES
-                run: python printer-linter/src/terminal.py --format ${{ env.GIT_DIFF_FILTERED }}
+                run: python printer-linter/src/terminal.py --fix --format ${{ env.GIT_DIFF_FILTERED }}
 
             -   uses: stefanzweifel/git-auto-commit-action@v4
                 if: env.GIT_DIFF && !env.MATCHED_FILES
