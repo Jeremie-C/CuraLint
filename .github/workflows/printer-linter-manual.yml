@@ -38,7 +38,7 @@ jobs:
                   echo "${{ steps.glob.outputs.paths }}"
 
             -   name: Format file
-                run: python printer-linter/src/terminal.py --fix --format "${{ steps.glob.outputs.paths }}"
+                run: python printer-linter/src/terminal.py --fix --format ${{ steps.glob.outputs.paths }}
             
             -   uses: stefanzweifel/git-auto-commit-action@v4
                 with:
